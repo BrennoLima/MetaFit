@@ -10,17 +10,18 @@ import '@fontsource/roboto/700.css';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-	<React.StrictMode>
-		<Auth0Provider
-			domain="dev-5a5e0c4j3fsshqij.us.auth0.com"
-			clientId="NksP1bQ5l9MJSpD3JUeKKENluvQfm2bs"
-			authorizationParams={{
-				redirect_uri: window.location.origin
-			}}
-		>
-			<App />
-		</Auth0Provider>,
-	</React.StrictMode>
+  <React.StrictMode>
+    <Auth0Provider
+      domain="dev-5a5e0c4j3fsshqij.us.auth0.com"
+      clientId="NksP1bQ5l9MJSpD3JUeKKENluvQfm2bs"
+      authorizationParams={{
+        redirect_uri: window.location.origin,
+      }}
+    >
+      <App />
+    </Auth0Provider>
+    ,
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
