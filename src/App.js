@@ -3,7 +3,11 @@ import LoadingButton from '@mui/lab/LoadingButton';
 import Container from '@mui/material/Container';
 import OpenAI from 'openai';
 
+import { useAuth0 } from "@auth0/auth0-react";
+import Profile from "./Profile";
+
 function App() {
+	const { isAuthenticated} = useAuth0();
 	const [isLoading, setIsLoading] = useState(false);
 	const [diet, setDiet] = useState('');
 
@@ -44,16 +48,48 @@ function App() {
 		setIsLoading(false);
 	};
 
+	const LoginButton = () => {
+		const { loginWithRedirect } = useAuth0();
+
+		return <button onClick={() => loginWithRedirect()}>Log In</button>;
+	};
+
+	const LogoutButton = () => {
+		const { logout } = useAuth0();
+
+		return (
+			<button onClick={() => logout({ logoutParams: { returnTo: window.location.origin } })}>
+				Log Out
+			</button>
+		);
+	};
+
 	return (
 		<Container>
-			<LoadingButton
-				loading={isLoading}
-				variant='contained'
-				onClick={generateDiet}
-			>
-				Generate diet
-			</LoadingButton>
-			{diet}
+			{isAuthenticated ?
+				(
+					<>
+						<h1>Generate a diet plan</h1>
+						<LogoutButton/>
+						<br/><br/>
+						<Profile />
+						<br/><br/>
+						<LoadingButton
+							loading={isLoading}
+							variant='contained'
+							onClick={generateDiet}
+						>
+							Generate diet
+						</LoadingButton>
+						{diet}
+					</>
+				) : (
+					<>
+						<h1>Log in to generate a diet plan</h1>
+						<LoginButton/>
+					</>
+				)
+			}
 		</Container>
 	);
 }
