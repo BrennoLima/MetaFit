@@ -1,25 +1,22 @@
 import React from 'react';
-import { Box, Card, Stack, Typography } from '@mui/material';
+import { Box, Card, CircularProgress, Stack, Typography } from '@mui/material';
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
+import { v4 as uuidv4 } from 'uuid';
+
 import { getImageName } from '../utils/getImageName';
+import { CARBS_COLOR, FATS_COLOR, PROTEINS_COLOR } from '../utils/constants';
 
-// interface mealCardProps {
-// 	calories: string;
-// 	carbs: string;
-// 	content: { name: string; quantity: string }[];
-// 	name: string;
-// 	protein: string;
-// 	fats: string;
-// 	time: string;
-// }
-
-const MealCard = ({ meal }) => {
-	console.log(meal);
+const MealCard = ({ summary, meal }) => {
 	return (
-		<Card sx={{ p: 2 }}>
+		<Card
+			elevation={0}
+			sx={{ background: '#FFF', p: 2, border: '1px solid #DDD' }}
+		>
 			<Box gap={2} sx={{ display: 'flex', alignItems: 'center' }}>
-				<RestaurantOutlinedIcon fontSize='medium' />
-				<Typography fontWeight='600'>{meal.name}</Typography>
+				<RestaurantOutlinedIcon fontSize='medium' sx={{ color: '#00000060' }} />
+				<Typography fontWeight='medium' lineHeight={1} fontSize={18}>
+					{meal.name}
+				</Typography>
 				<Typography
 					variant='body2'
 					color='text.secondary'
@@ -38,7 +35,7 @@ const MealCard = ({ meal }) => {
 					cal
 				</Typography>
 			</Box>
-			<Stack gap={2} sx={{ justifyContent: 'flex-start', my: 2 }}>
+			<Stack gap={1} sx={{ justifyContent: 'flex-start', my: 2 }}>
 				{meal.content.map((mealItem) => (
 					<Box
 						sx={{
@@ -46,6 +43,7 @@ const MealCard = ({ meal }) => {
 							alignItems: 'center',
 							justifyContent: 'flex-start',
 						}}
+						key={uuidv4()}
 					>
 						<img
 							src={`assets/images/foods/${getImageName(mealItem.name)}.jpg`}
@@ -74,40 +72,73 @@ const MealCard = ({ meal }) => {
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'space-around',
+					mt: 2,
+					pt: 2,
+					borderTop: '1px solid #DDD',
 				}}
 			>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 					<Box
 						sx={{
-							width: 10,
-							height: 10,
+							color: CARBS_COLOR,
+							boxShadow: 'inset 0px 0px 0px 2px #DDD',
 							borderRadius: '50%',
-							background: '#FF0000',
+							width: '24px',
+							height: '24px',
 						}}
-					/>
-					<Typography variant='body2'>{meal.carbs} carbs</Typography>
+					>
+						<CircularProgress
+							size={24}
+							variant='determinate'
+							color='inherit'
+							value={(meal?.carbs / summary?.carbs) * 100}
+						/>
+					</Box>
+					<Typography color='text.secondary' variant='body2'>
+						<b>{meal.carbs}g</b> carbs
+					</Typography>
 				</Box>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 					<Box
 						sx={{
-							width: 10,
-							height: 10,
+							color: PROTEINS_COLOR,
+							boxShadow: 'inset 0px 0px 0px 2px #DDD',
 							borderRadius: '50%',
-							background: '#000DFF',
+							width: '24px',
+							height: '24px',
 						}}
-					/>
-					<Typography variant='body2'>{meal.protein} protein</Typography>
+					>
+						<CircularProgress
+							size={24}
+							variant='determinate'
+							color='inherit'
+							value={(meal?.proteins / summary?.proteins) * 100}
+						/>
+					</Box>
+					<Typography color='text.secondary' variant='body2'>
+						<b>{meal.proteins}g</b> protein
+					</Typography>
 				</Box>
 				<Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
 					<Box
 						sx={{
-							width: 10,
-							height: 10,
+							color: FATS_COLOR,
+							boxShadow: 'inset 0px 0px 0px 2px #DDD',
 							borderRadius: '50%',
-							background: '#FFC300',
+							width: '24px',
+							height: '24px',
 						}}
-					/>
-					<Typography variant='body2'>{meal.fats} fats</Typography>
+					>
+						<CircularProgress
+							size={24}
+							variant='determinate'
+							color='inherit'
+							value={(meal?.fats / summary?.fats) * 100}
+						/>
+					</Box>
+					<Typography color='text.secondary' variant='body2'>
+						<b>{meal.fats}g</b> fats
+					</Typography>
 				</Box>
 			</Box>
 		</Card>

@@ -7,19 +7,23 @@ import {
 	TimelineDot,
 	TimelineConnector,
 	TimelineContent,
+	TimelineOppositeContent,
 } from '@mui/lab';
-import TimelineOppositeContent, {
-	timelineOppositeContentClasses,
-} from '@mui/lab/TimelineOppositeContent';
-import { Container, Typography } from '@mui/material';
+import { Box, Container, Typography } from '@mui/material';
+import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import { v4 as uuidv4 } from 'uuid';
 import OpenAI from 'openai';
 
 import MealCard from './components/MealCard';
+import DailySummaryBoard from './components/DailySummaryBoard';
+import { getTimestamp } from './utils/getTimestamp';
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
+	const [consumedMacros, setConsumedMacros] = useState(null);
 	const [diet, setDiet] = useState(null);
-
+	const timeNow = new Date().getTime();
 	const openai = new OpenAI({
 		apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 		dangerouslyAllowBrowser: true,
@@ -33,12 +37,7 @@ function App() {
 		// 		{
 		// 			role: 'system',
 		// 			content:
-		// 				"You're an experienced nutritionist and you will create me a custom meal plan. Keeping in mind my wake up, sleep and exercise time.",
-		// 		},
-		// 		{
-		// 			role: 'system',
-		// 			content:
-		// 				'For the output ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": string; "protein": string; "carbs": string; "fats": string; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": string, "protein": string, "carbs": string, "fats": string }[];}`',
+		// 				"You're an experienced nutritionist and you will create me a custom meal plan.",
 		// 		},
 		// 		{
 		// 			role: 'system',
@@ -50,6 +49,15 @@ function App() {
 		// 			content:
 		// 				'Adjust the diet to my day schedule: wake up at 5:30am, exercise from 6am to 7:30 am, sleep at 10pm. I should always have a meal before my workout',
 		// 		},
+		// 		{
+		// 			role: 'system',
+		// 			content:
+		// 				'For the output ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": number; "proteins": number; "carbs": number; "fats": number; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": number, "proteins": number, "carbs": number, "fats": number }[];}`',
+		// 		},
+		// 		{
+		// 			role: 'system',
+		// 			content: 'the dailySummary object has to match the sum of calories, carbs, proteins, and fats of all meals together'
+		// 		},
 		// 	],
 		// });
 		// console.log(completion.choices[0].message.content);
@@ -57,12 +65,12 @@ function App() {
 		// setDiet(JSON.parse(completion.choices[0].message.content));
 
 		// hardcoded diet to save $$$ on development mode
-		setDiet({
+		const diet = {
 			dailySummary: {
-				calories: '2200',
-				protein: '180g',
-				carbs: '200g',
-				fats: '70g',
+				calories: 2500,
+				proteins: 180,
+				carbs: 250,
+				fats: 90,
 			},
 			meals: [
 				{
@@ -73,10 +81,10 @@ function App() {
 						{ name: 'Banana', quantity: '1 medium' },
 						{ name: 'Whey Protein Shake', quantity: '1 scoop' },
 					],
-					calories: '400',
-					protein: '30g',
-					carbs: '60g',
-					fats: '10g',
+					calories: 400,
+					proteins: 30,
+					carbs: 60,
+					fats: 10,
 				},
 				{
 					name: 'Post-Workout Breakfast',
@@ -86,10 +94,10 @@ function App() {
 						{ name: 'Whole Grain Toast', quantity: '2 slices' },
 						{ name: 'Avocado', quantity: '50g' },
 					],
-					calories: '500',
-					protein: '30g',
-					carbs: '40g',
-					fats: '25g',
+					calories: 500,
+					proteins: 30,
+					carbs: 40,
+					fats: 25,
 				},
 				{
 					name: 'Mid-Morning Snack',
@@ -98,10 +106,10 @@ function App() {
 						{ name: 'Greek Yogurt', quantity: '200g' },
 						{ name: 'Mixed Berries', quantity: '100g' },
 					],
-					calories: '250',
-					protein: '20g',
-					carbs: '30g',
-					fats: '5g',
+					calories: 250,
+					proteins: 20,
+					carbs: 30,
+					fats: 5,
 				},
 				{
 					name: 'Lunch',
@@ -111,10 +119,10 @@ function App() {
 						{ name: 'Quinoa', quantity: '100g' },
 						{ name: 'Steamed Broccoli', quantity: '100g' },
 					],
-					calories: '600',
-					protein: '50g',
-					carbs: '60g',
-					fats: '15g',
+					calories: 600,
+					proteins: 50,
+					carbs: 60,
+					fats: 15,
 				},
 				{
 					name: 'Afternoon Snack',
@@ -123,10 +131,10 @@ function App() {
 						{ name: 'Hummus', quantity: '100g' },
 						{ name: 'Carrot Sticks', quantity: '100g' },
 					],
-					calories: '200',
-					protein: '5g',
-					carbs: '30g',
-					fats: '10g',
+					calories: 200,
+					proteins: 5,
+					carbs: 30,
+					fats: 10,
 				},
 				{
 					name: 'Dinner',
@@ -136,52 +144,96 @@ function App() {
 						{ name: 'Sweet Potato', quantity: '200g' },
 						{ name: 'Mixed Salad', quantity: '150g' },
 					],
-					calories: '550',
-					protein: '45g',
-					carbs: '30g',
-					fats: '25g',
+					calories: 550,
+					proteins: 45,
+					carbs: 30,
+					fats: 25,
 				},
 			],
-		});
+		};
+		setDiet(diet);
+		setConsumedMacros(calculateMacros(diet));
 		setIsLoading(false);
 	};
 
+	const calculateMacros = (diet) => {
+		// This function calculates (calories, carbs, proteins, and fats) that should have been consumed by the current time
+		const consumedMacros = {
+			calories: 0,
+			carbs: 0,
+			proteins: 0,
+			fats: 0,
+		};
+		diet?.meals.map((meal) => {
+			if (timeNow >= getTimestamp(meal.time)) {
+				consumedMacros.calories += meal.calories;
+				consumedMacros.carbs += meal.carbs;
+				consumedMacros.proteins += meal.proteins;
+				consumedMacros.fats += meal.fats;
+			}
+			return null;
+		});
+		return consumedMacros;
+	};
+
 	return (
-		<Container maxWidth='lg'>
-			<LoadingButton
-				loading={isLoading}
-				variant='contained'
-				onClick={generateDiet}
-			>
-				Generate diet
-			</LoadingButton>
-			<Timeline
-				sx={{
-					[`& .${timelineOppositeContentClasses.root}`]: {
-						flex: 0.1,
-					},
-				}}
-			>
-				{diet?.meals.map((mealItem, index) => (
-					<TimelineItem key={index}>
-						<TimelineOppositeContent sx={{ mt: '3px' }}>
-							<Typography variant='body2' fontWeight='medium'>
-								{mealItem.time}
-							</Typography>
-						</TimelineOppositeContent>
-						<TimelineSeparator>
-							<TimelineDot
-								sx={{ background: '#DDD', width: '1px', height: '1px' }}
-							/>
-							<TimelineConnector sx={{ width: '1px', my: 1 }} />
-						</TimelineSeparator>
-						<TimelineContent sx={{ mt: -2, mb: 2 }}>
-							<MealCard meal={mealItem} />
-						</TimelineContent>
-					</TimelineItem>
-				))}
-			</Timeline>
-		</Container>
+		<Box sx={{ minHeight: '100vh', background: '#FEFEFE' }}>
+			<Container maxWidth='md'>
+				<LoadingButton
+					loading={isLoading}
+					variant='contained'
+					onClick={generateDiet}
+				>
+					Generate diet
+				</LoadingButton>
+				<DailySummaryBoard
+					summary={diet?.dailySummary}
+					consumedMacros={consumedMacros}
+				/>
+				<Timeline
+					sx={{
+						p: 0,
+						'& .MuiTimelineOppositeContent-root': {
+							flex: 0,
+							paddingLeft: 0,
+							'> p': {
+								width: '65px',
+							},
+						},
+					}}
+				>
+					{diet?.meals.map((mealItem, index) => (
+						<TimelineItem key={uuidv4()}>
+							<TimelineOppositeContent sx={{ mt: 1 }}>
+								<Typography variant='body2' fontWeight='semi-bold'>
+									{mealItem.time}
+								</Typography>
+							</TimelineOppositeContent>
+							<TimelineSeparator>
+								<TimelineDot
+									color={
+										timeNow >= getTimestamp(mealItem.time)
+											? 'success'
+											: 'warning'
+									}
+									sx={{ p: 0 }}
+								>
+									{timeNow >= getTimestamp(mealItem.time) ? (
+										<TaskAltOutlinedIcon fontSize='small' />
+									) : (
+										<AccessTimeOutlinedIcon fontSize='small' />
+									)}
+								</TimelineDot>
+								<TimelineConnector sx={{ width: '1px', my: 1 }} />
+							</TimelineSeparator>
+							<TimelineContent sx={{ mt: -1, mb: 4 }}>
+								<MealCard summary={diet?.dailySummary} meal={mealItem} />
+							</TimelineContent>
+						</TimelineItem>
+					))}
+				</Timeline>
+			</Container>
+		</Box>
 	);
 }
 
