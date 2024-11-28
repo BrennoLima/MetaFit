@@ -178,14 +178,15 @@ function App() {
 
 	return (
 		<Box sx={{ minHeight: '100vh', background: '#f7f7f7' }}>
+			<LoadingButton
+				loading={isLoading}
+				variant='contained'
+				onClick={generateDiet}
+				sx={{ position: 'fixed', bottom: '5%', right: '10%' }}
+			>
+				Generate diet
+			</LoadingButton>
 			<Container maxWidth='md'>
-				<LoadingButton
-					loading={isLoading}
-					variant='contained'
-					onClick={generateDiet}
-				>
-					Generate diet
-				</LoadingButton>
 				<DailySummaryBoard
 					summary={diet?.dailySummary}
 					consumedMacros={consumedMacros}

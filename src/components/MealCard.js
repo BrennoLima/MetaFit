@@ -51,8 +51,7 @@ const MealCard = ({ summary, meal }) => {
 					fontWeight='400'
 					lineHeight={1}
 				>
-					{meal.calories}
-					cal
+					{meal.calories} Cal
 				</Typography>
 			</Box>
 			<Stack gap={1} sx={{ justifyContent: 'flex-start', my: 2 }}>
