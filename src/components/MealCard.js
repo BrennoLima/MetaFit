@@ -1,18 +1,38 @@
 import React from 'react';
-import { Box, Card, CircularProgress, Stack, Typography } from '@mui/material';
+import {
+	Box,
+	Card,
+	CircularProgress,
+	IconButton,
+	Stack,
+	Tooltip,
+	Typography,
+} from '@mui/material';
 import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
+import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { v4 as uuidv4 } from 'uuid';
 
 import { getImageName } from '../utils/getImageName';
 import { CARBS_COLOR, FATS_COLOR, PROTEINS_COLOR } from '../utils/constants';
 
 const MealCard = ({ summary, meal }) => {
+	const refreshItem = () => {
+		console.log('TO-DO');
+	};
 	return (
 		<Card
 			elevation={0}
 			sx={{ background: '#FFF', p: 2, border: '1px solid #DDD' }}
 		>
-			<Box gap={2} sx={{ display: 'flex', alignItems: 'center' }}>
+			<Box
+				gap={2}
+				sx={{
+					display: 'flex',
+					alignItems: 'center',
+					pb: 2,
+					borderBottom: '1px solid #DDD',
+				}}
+			>
 				<RestaurantOutlinedIcon fontSize='medium' sx={{ color: '#00000060' }} />
 				<Typography fontWeight='medium' lineHeight={1} fontSize={18}>
 					{meal.name}
@@ -63,6 +83,11 @@ const MealCard = ({ summary, meal }) => {
 								{mealItem.quantity}
 							</Typography>
 						</Box>
+						<Tooltip title='Refresh Item'>
+							<IconButton onClick={refreshItem} sx={{ ml: 'auto' }}>
+								<RefreshOutlinedIcon />
+							</IconButton>
+						</Tooltip>
 					</Box>
 				))}
 			</Stack>
@@ -88,6 +113,7 @@ const MealCard = ({ summary, meal }) => {
 						}}
 					>
 						<CircularProgress
+							aria-label='CarbsProgress'
 							size={24}
 							variant='determinate'
 							color='inherit'
@@ -109,6 +135,7 @@ const MealCard = ({ summary, meal }) => {
 						}}
 					>
 						<CircularProgress
+							aria-label='ProteinProgress'
 							size={24}
 							variant='determinate'
 							color='inherit'
@@ -130,6 +157,7 @@ const MealCard = ({ summary, meal }) => {
 						}}
 					>
 						<CircularProgress
+							aria-label='FatsProgress'
 							size={24}
 							variant='determinate'
 							color='inherit'

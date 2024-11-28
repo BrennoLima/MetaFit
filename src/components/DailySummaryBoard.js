@@ -1,20 +1,25 @@
 import React from 'react';
 import TrackChangesOutlinedIcon from '@mui/icons-material/TrackChangesOutlined';
-import { Box, LinearProgress, Typography } from '@mui/material';
+import { Box, Card, LinearProgress, Typography } from '@mui/material';
 
 import { CARBS_COLOR, FATS_COLOR, PROTEINS_COLOR } from '../utils/constants';
 
 const DailySummaryBoard = ({ summary, consumedMacros }) => {
 	return (
-		<Box>
+		<Card
+			sx={{
+				color: 'white',
+				background: 'linear-gradient(180deg, #2764af, #172a42)',
+				mb: 4,
+			}}
+		>
 			<Box
 				sx={{
 					display: 'flex',
 					alignItems: 'center',
 					justifyContent: 'center',
 					gap: 1,
-					mt: 8,
-					pb: 4,
+					my: 4,
 				}}
 			>
 				<TrackChangesOutlinedIcon sx={{ width: '48px', height: '48px' }} />
@@ -32,15 +37,11 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 					</Typography>
 				</Box>
 			</Box>
-			<Box
-				sx={{
-					pb: 4,
-				}}
-			>
+			<Box>
 				<Typography textAlign='center' fontWeight='bold' fontSize={32}>
 					{summary?.calories}
 				</Typography>
-				<Typography color='text.secondary' textAlign='center' fontSize={16}>
+				<Typography textAlign='center' fontSize={16} sx={{ opacity: 0.5 }}>
 					Daily Calories
 				</Typography>
 			</Box>
@@ -49,7 +50,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 					display: 'flex',
 					justifyContent: 'center',
 					width: 1,
-					mb: 8,
+					my: 4,
 				}}
 			>
 				<Box
@@ -66,6 +67,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						</Typography>
 						<Box sx={{ py: 1, color: CARBS_COLOR }}>
 							<LinearProgress
+								aria-label='CarbsProgress'
 								variant='determinate'
 								color='inherit'
 								value={(consumedMacros?.carbs / summary?.carbs) * 100}
@@ -81,18 +83,23 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								}}
 							/>
 						</Box>
-						<Typography color='text.secondary' variant='body2'>
-							<mark
-								style={{
-									background: 'none',
-									fontSize: '16px',
-									fontWeight: 'bold',
-								}}
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<Typography fontWeight='bold'>
+								{consumedMacros?.carbs}g
+							</Typography>
+							<Typography
+								variant='body2'
+								sx={{ ml: 0.5, mt: '2px', opacity: 0.5 }}
 							>
-								{consumedMacros?.carbs}
-							</mark>{' '}
-							/{summary?.carbs}g
-						</Typography>
+								/{summary?.carbs}g
+							</Typography>
+						</Box>
 					</Box>
 					<Box sx={{ width: 1, textAlign: 'center' }}>
 						<Typography fontSize={18} fontWeight='medium'>
@@ -100,6 +107,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						</Typography>
 						<Box sx={{ py: 1, color: PROTEINS_COLOR }}>
 							<LinearProgress
+								aria-label='ProteinsProgress'
 								variant='determinate'
 								color='inherit'
 								value={(consumedMacros?.proteins / summary?.proteins) * 100}
@@ -115,18 +123,23 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								}}
 							/>
 						</Box>
-						<Typography color='text.secondary' variant='body2'>
-							<mark
-								style={{
-									background: 'none',
-									fontSize: '16px',
-									fontWeight: 'bold',
-								}}
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<Typography fontWeight='bold'>
+								{consumedMacros?.proteins}g
+							</Typography>
+							<Typography
+								variant='body2'
+								sx={{ ml: 0.5, mt: '2px', opacity: 0.5 }}
 							>
-								{consumedMacros?.proteins}
-							</mark>{' '}
-							/{summary?.proteins}g
-						</Typography>
+								/{summary?.proteins}g
+							</Typography>
+						</Box>
 					</Box>
 					<Box sx={{ width: 1, textAlign: 'center' }}>
 						<Typography fontSize={18} fontWeight='medium'>
@@ -134,6 +147,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						</Typography>
 						<Box sx={{ py: 1, color: FATS_COLOR }}>
 							<LinearProgress
+								aria-label='FatsProgress'
 								variant='determinate'
 								color='inherit'
 								value={(consumedMacros?.fats / summary?.fats) * 100}
@@ -149,22 +163,25 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								}}
 							/>
 						</Box>
-						<Typography color='text.secondary' variant='body2'>
-							<mark
-								style={{
-									background: 'none',
-									fontSize: '16px',
-									fontWeight: 'bold',
-								}}
+						<Box
+							sx={{
+								display: 'flex',
+								alignItems: 'center',
+								justifyContent: 'center',
+							}}
+						>
+							<Typography fontWeight='bold'>{consumedMacros?.fats}g</Typography>
+							<Typography
+								variant='body2'
+								sx={{ ml: 0.5, mt: '2px', opacity: 0.5 }}
 							>
-								{consumedMacros?.fats}
-							</mark>{' '}
-							/{summary?.fats}g
-						</Typography>
+								/{summary?.fats}g
+							</Typography>
+						</Box>
 					</Box>
 				</Box>
 			</Box>
-		</Box>
+		</Card>
 	);
 };
 

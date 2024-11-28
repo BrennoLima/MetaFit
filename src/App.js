@@ -177,7 +177,7 @@ function App() {
 	};
 
 	return (
-		<Box sx={{ minHeight: '100vh', background: '#FEFEFE' }}>
+		<Box sx={{ minHeight: '100vh', background: '#f7f7f7' }}>
 			<Container maxWidth='md'>
 				<LoadingButton
 					loading={isLoading}
