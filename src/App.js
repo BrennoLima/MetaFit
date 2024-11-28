@@ -56,13 +56,13 @@ function App() {
 		// 		},
 		// 		{
 		// 			role: 'system',
-		// 			content: 'the dailySummary object has to match the sum of calories, carbs, proteins, and fats of all meals together'
+		// 			content:
+		// 				'the dailySummary object has to match the sum of calories, carbs, proteins, and fats of all meals together',
 		// 		},
 		// 	],
 		// });
 		// console.log(completion.choices[0].message.content);
-		// console.log(JSON.parse(completion.choices[0].message.content));
-		// setDiet(JSON.parse(completion.choices[0].message.content));
+		// const diet = JSON.parse(completion.choices[0].message.content);
 
 		// hardcoded diet to save $$$ on development mode
 		const diet = {

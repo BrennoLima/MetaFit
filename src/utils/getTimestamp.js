@@ -4,6 +4,6 @@ export const getTimestamp = (time) => {
 	let today = new Date();
 	let hours = parseInt(time.split(':')[0]);
 	let minutes = parseInt(time.split(' ')[0].split(':')[1]);
-	if (time.includes('PM')) hours += 12;
+	if (time.includes('PM') && hours !== 12) hours += 12;
 	return today.setHours(hours, minutes, 0);
 };
