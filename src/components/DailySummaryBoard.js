@@ -57,6 +57,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 					}}
 				>
 					<CircularProgress
+						aria-label='DailyCaloriesProgress'
 						size={200}
 						thickness={2}
 						variant='determinate'
@@ -71,6 +72,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						}}
 					/>
 					<CircularProgress
+						aria-label='DailyCaloriesTotalProgress'
 						size={200}
 						thickness={2}
 						variant='determinate'
