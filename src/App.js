@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	LoadingButton,
 	Timeline,
@@ -9,7 +9,7 @@ import {
 	TimelineContent,
 	TimelineOppositeContent,
 } from '@mui/lab';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, IconButton, Tooltip, Typography } from '@mui/material';
 import TaskAltOutlinedIcon from '@mui/icons-material/TaskAltOutlined';
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
 import { v4 as uuidv4 } from 'uuid';
@@ -52,7 +52,7 @@ function App() {
 		// 		{
 		// 			role: 'system',
 		// 			content:
-		// 				'For the output ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": number; "proteins": number; "carbs": number; "fats": number; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": number, "proteins": number, "carbs": number, "fats": number }[];}`',
+		// 				'For the output ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": number; "proteins": number; "carbs": number; "fats": number; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": number, "proteins": number, "carbs": number, "fats": number, completed: false }[];}`',
 		// 		},
 		// 		{
 		// 			role: 'system',
@@ -61,9 +61,7 @@ function App() {
 		// 		},
 		// 	],
 		// });
-		// console.log(completion.choices[0].message.content);
 		// const diet = JSON.parse(completion.choices[0].message.content);
-
 		// hardcoded diet to save $$$ on development mode
 		const diet = {
 			dailySummary: {
@@ -85,6 +83,7 @@ function App() {
 					proteins: 30,
 					carbs: 60,
 					fats: 10,
+					completed: false,
 				},
 				{
 					name: 'Post-Workout Breakfast',
@@ -98,6 +97,7 @@ function App() {
 					proteins: 30,
 					carbs: 40,
 					fats: 25,
+					completed: false,
 				},
 				{
 					name: 'Mid-Morning Snack',
@@ -110,6 +110,7 @@ function App() {
 					proteins: 20,
 					carbs: 30,
 					fats: 5,
+					completed: false,
 				},
 				{
 					name: 'Lunch',
@@ -123,6 +124,7 @@ function App() {
 					proteins: 50,
 					carbs: 60,
 					fats: 15,
+					completed: false,
 				},
 				{
 					name: 'Afternoon Snack',
@@ -135,6 +137,7 @@ function App() {
 					proteins: 5,
 					carbs: 30,
 					fats: 10,
+					completed: false,
 				},
 				{
 					name: 'Dinner',
@@ -148,16 +151,26 @@ function App() {
 					proteins: 45,
 					carbs: 30,
 					fats: 25,
+					completed: false,
 				},
 			],
 		};
-		setDiet(diet);
-		setConsumedMacros(calculateMacros(diet));
+		setDiet(markMealCompletionBasedOnTime(diet));
 		setIsLoading(false);
 	};
 
+	const markMealCompletionBasedOnTime = (diet) => {
+		return {
+			...diet,
+			meals: diet.meals.map((meal) => ({
+				...meal,
+				completed: timeNow >= getTimestamp(meal.time),
+			})),
+		};
+	};
+
 	const calculateMacros = (diet) => {
-		// This function calculates (calories, carbs, proteins, and fats) that should have been consumed by the current time
+		// This function calculates (calories, carbs, proteins, and fats) that should have been consumed based on meal completion
 		const consumedMacros = {
 			calories: 0,
 			carbs: 0,
@@ -165,7 +178,7 @@ function App() {
 			fats: 0,
 		};
 		diet?.meals.map((meal) => {
-			if (timeNow >= getTimestamp(meal.time)) {
+			if (meal.completed) {
 				consumedMacros.calories += meal.calories;
 				consumedMacros.carbs += meal.carbs;
 				consumedMacros.proteins += meal.proteins;
@@ -176,15 +189,34 @@ function App() {
 		return consumedMacros;
 	};
 
+	const toggleMealCompletion = (mealToUpdate) => {
+		setDiet((prev) => ({
+			...prev,
+			meals: prev.meals.map((meal) =>
+				meal === mealToUpdate ? { ...meal, completed: !meal.completed } : meal
+			),
+		}));
+	};
+
+	useEffect(() => {
+		// Whenever the diet object updates, re-calculate macros based on completion
+		setConsumedMacros(calculateMacros(diet));
+	}, [diet]);
+
 	return (
 		<Box sx={{ minHeight: '100vh', background: '#f7f7f7' }}>
 			<LoadingButton
 				loading={isLoading}
 				variant='contained'
 				onClick={generateDiet}
-				sx={{ position: 'fixed', bottom: '5%', right: '10%' }}
+				sx={{
+					position: 'fixed',
+					bottom: '5%',
+					right: '10%',
+					textTransform: 'none',
+				}}
 			>
-				Generate diet
+				Generate Diet
 			</LoadingButton>
 			<Container maxWidth='md'>
 				<DailySummaryBoard
@@ -212,18 +244,27 @@ function App() {
 							</TimelineOppositeContent>
 							<TimelineSeparator>
 								<TimelineDot
-									color={
-										timeNow >= getTimestamp(mealItem.time)
-											? 'success'
-											: 'warning'
-									}
+									color={mealItem.completed ? 'success' : 'warning'}
 									sx={{ p: 0 }}
 								>
-									{timeNow >= getTimestamp(mealItem.time) ? (
-										<TaskAltOutlinedIcon fontSize='small' />
-									) : (
-										<AccessTimeOutlinedIcon fontSize='small' />
-									)}
+									<Tooltip
+										title={
+											mealItem.completed
+												? 'Mark as incompleted'
+												: 'Mark as completed'
+										}
+									>
+										<IconButton
+											onClick={() => toggleMealCompletion(mealItem)}
+											sx={{ p: 0, color: 'white' }}
+										>
+											{mealItem.completed ? (
+												<TaskAltOutlinedIcon fontSize='small' />
+											) : (
+												<AccessTimeOutlinedIcon fontSize='small' />
+											)}
+										</IconButton>
+									</Tooltip>
 								</TimelineDot>
 								<TimelineConnector sx={{ width: '1px', my: 1 }} />
 							</TimelineSeparator>

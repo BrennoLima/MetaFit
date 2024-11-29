@@ -20,7 +20,11 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 		<Card
 			sx={{
 				color: 'white',
-				background: 'linear-gradient(180deg, #4f7db7, #2d507c)',
+				backgroundImage:
+					" url('assets/SVGs/DailySummaryBgBlob.svg'), linear-gradient(180deg, #4f7db7, #2d507c)",
+				backgroundRepeat: 'no-repeat',
+				backgroundSize: '150%',
+				backgroundPosition: 'top',
 				mb: 4,
 			}}
 		>
@@ -61,9 +65,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						size={200}
 						thickness={2}
 						variant='determinate'
-						value={
-							(consumedMacros?.calories / summary?.calories) * 100 - 40 || 0
-						}
+						value={(consumedMacros?.calories * 60) / summary?.calories || 0}
 						sx={{
 							transform: 'rotate(160deg) !important',
 							position: 'absolute',
@@ -88,7 +90,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 						display: 'flex',
 						alignItems: 'center',
 						justifyContent: 'center',
-						mt: '-130px',
+						mt: '-140px',
 						pb: 0.5,
 					}}
 				>
@@ -128,7 +130,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								aria-label='CarbsProgress'
 								variant='determinate'
 								color='inherit'
-								value={(consumedMacros?.carbs / summary?.carbs) * 100}
+								value={(consumedMacros?.carbs / summary?.carbs) * 100 || 0}
 								sx={{
 									'&.MuiLinearProgress-root': {
 										height: 5,
@@ -168,7 +170,9 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								aria-label='ProteinsProgress'
 								variant='determinate'
 								color='inherit'
-								value={(consumedMacros?.proteins / summary?.proteins) * 100}
+								value={
+									(consumedMacros?.proteins / summary?.proteins) * 100 || 0
+								}
 								sx={{
 									'&.MuiLinearProgress-root': {
 										height: 5,
@@ -208,7 +212,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 								aria-label='FatsProgress'
 								variant='determinate'
 								color='inherit'
-								value={(consumedMacros?.fats / summary?.fats) * 100}
+								value={(consumedMacros?.fats / summary?.fats) * 100 || 0}
 								sx={{
 									'&.MuiLinearProgress-root': {
 										height: 5,
