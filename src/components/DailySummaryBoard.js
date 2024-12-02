@@ -21,7 +21,7 @@ const DailySummaryBoard = ({ summary, consumedMacros }) => {
 			sx={{
 				color: 'white',
 				backgroundImage:
-					" url('assets/SVGs/DailySummaryBgBlob.svg'), linear-gradient(180deg, #4f7db7, #2d507c)",
+					"url('assets/SVGs/DailySummaryBgBlob.svg'), linear-gradient(180deg, #4f7db7, #2d507c)",
 				backgroundRepeat: 'no-repeat',
 				backgroundSize: '150%',
 				backgroundPosition: 'top',

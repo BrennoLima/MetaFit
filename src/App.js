@@ -18,6 +18,7 @@ import OpenAI from 'openai';
 import MealCard from './components/MealCard';
 import DailySummaryBoard from './components/DailySummaryBoard';
 import { getTimestamp } from './utils/getTimestamp';
+import UserInformation from './components/InfoGathering/UserInformation';
 
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
@@ -218,6 +219,7 @@ function App() {
 			>
 				Generate Diet
 			</LoadingButton>
+			<UserInformation />
 			<Container maxWidth='md'>
 				<DailySummaryBoard
 					summary={diet?.dailySummary}
