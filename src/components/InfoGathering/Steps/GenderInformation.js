@@ -36,7 +36,7 @@ const GenderInformation = ({ userInfo, updateUserInfo, nextStep }) => {
 						<LinearProgress
 							color='inherit'
 							variant='determinate'
-							value={(100 / 6) * 1}
+							value={(100 / 6) * 0}
 							sx={{
 								'&.MuiLinearProgress-root': {
 									height: 5,
@@ -140,7 +140,7 @@ const GenderInformation = ({ userInfo, updateUserInfo, nextStep }) => {
 							variant='contained'
 							color='secondary'
 							sx={{ px: 4 }}
-							endIcon={<KeyboardArrowRightIcon sx={{ pb: '2px' }} />}
+							endIcon={<KeyboardArrowRightIcon />}
 							onClick={nextStep}
 						>
 							Next

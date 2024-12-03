@@ -47,7 +47,7 @@ const PersonalInformation = ({
 						<LinearProgress
 							color='inherit'
 							variant='determinate'
-							value={(100 / 6) * 3}
+							value={(100 / 6) * 2}
 							sx={{
 								'&.MuiLinearProgress-root': {
 									height: 5,
@@ -204,7 +204,6 @@ const PersonalInformation = ({
 							<DatePicker
 								disableFuture
 								format='YYYY-MM-DD'
-								error={false}
 								value={dayjs(userInfo.birthdate)}
 								onChange={(value) =>
 									updateUserInfo('birthdate', dayjs(value).format('YYYY-MM-DD'))
@@ -233,7 +232,7 @@ const PersonalInformation = ({
 						<Button
 							onClick={prevStep}
 							sx={{ color: '#FFF', px: 4 }}
-							startIcon={<KeyboardArrowLeftIcon sx={{ pb: '2px' }} />}
+							startIcon={<KeyboardArrowLeftIcon />}
 						>
 							Back
 						</Button>
@@ -247,7 +246,7 @@ const PersonalInformation = ({
 							variant='contained'
 							color='secondary'
 							sx={{ px: 4 }}
-							endIcon={<KeyboardArrowRightIcon sx={{ pb: '2px' }} />}
+							endIcon={<KeyboardArrowRightIcon />}
 							onClick={nextStep}
 						>
 							Next

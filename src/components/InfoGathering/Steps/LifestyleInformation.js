@@ -43,7 +43,7 @@ const LifestyleInformation = ({
 						<LinearProgress
 							color='inherit'
 							variant='determinate'
-							value={(100 / 6) * 4}
+							value={(100 / 6) * 3}
 							sx={{
 								'&.MuiLinearProgress-root': {
 									height: 5,
@@ -276,7 +276,7 @@ const LifestyleInformation = ({
 						<Button
 							onClick={prevStep}
 							sx={{ color: '#FFF', px: 4 }}
-							startIcon={<KeyboardArrowLeftIcon sx={{ pb: '2px' }} />}
+							startIcon={<KeyboardArrowLeftIcon />}
 						>
 							Back
 						</Button>
@@ -290,7 +290,7 @@ const LifestyleInformation = ({
 							variant='contained'
 							color='secondary'
 							sx={{ px: 4 }}
-							endIcon={<KeyboardArrowRightIcon sx={{ pb: '2px' }} />}
+							endIcon={<KeyboardArrowRightIcon />}
 							onClick={nextStep}
 						>
 							Next

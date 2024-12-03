@@ -12,8 +12,8 @@ import RestaurantOutlinedIcon from '@mui/icons-material/RestaurantOutlined';
 import RefreshOutlinedIcon from '@mui/icons-material/RefreshOutlined';
 import { v4 as uuidv4 } from 'uuid';
 
-import { getImageName } from '../utils/getImageName';
-import { CARBS_COLOR, FATS_COLOR, PROTEINS_COLOR } from '../utils/constants';
+import { getImageName } from '../../utils/getImageName';
+import { CARBS_COLOR, FATS_COLOR, PROTEINS_COLOR } from '../../utils/constants';
 
 const MealCard = ({ summary, meal }) => {
 	const refreshItem = () => {

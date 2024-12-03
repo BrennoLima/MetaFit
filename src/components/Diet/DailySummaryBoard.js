@@ -13,7 +13,7 @@ import {
 	CARBS_COLOR,
 	FATS_COLOR,
 	PROTEINS_COLOR,
-} from '../utils/constants';
+} from '../../utils/constants';
 
 const DailySummaryBoard = ({ summary, consumedMacros }) => {
 	return (

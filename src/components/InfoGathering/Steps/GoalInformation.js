@@ -38,7 +38,7 @@ const GoalInformation = ({ userInfo, updateUserInfo, nextStep, prevStep }) => {
 						<LinearProgress
 							color='inherit'
 							variant='determinate'
-							value={(100 / 6) * 2}
+							value={(100 / 6) * 1}
 							sx={{
 								'&.MuiLinearProgress-root': {
 									height: 5,
@@ -172,7 +172,7 @@ const GoalInformation = ({ userInfo, updateUserInfo, nextStep, prevStep }) => {
 						<Button
 							onClick={prevStep}
 							sx={{ color: '#FFF', px: 4 }}
-							startIcon={<KeyboardArrowLeftIcon sx={{ pb: '2px' }} />}
+							startIcon={<KeyboardArrowLeftIcon />}
 						>
 							Back
 						</Button>
@@ -181,7 +181,7 @@ const GoalInformation = ({ userInfo, updateUserInfo, nextStep, prevStep }) => {
 							variant='contained'
 							color='secondary'
 							sx={{ px: 4 }}
-							endIcon={<KeyboardArrowRightIcon sx={{ pb: '2px' }} />}
+							endIcon={<KeyboardArrowRightIcon />}
 							onClick={nextStep}
 						>
 							Next
