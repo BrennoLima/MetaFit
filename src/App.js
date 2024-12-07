@@ -1,17 +1,51 @@
 import React, { useState } from 'react';
 import { Box } from '@mui/material';
 import OpenAI from 'openai';
+import dayjs from 'dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 
 import UserInformation from './components/InfoGathering/UserInformation';
 import DietTimeline from './components/Diet/DietTimeline';
 
+dayjs.extend(relativeTime);
+
+const activityLevelRelationTable = {
+	1: '0 hours of exercise a week',
+	2: '2 hours of exercise a week',
+	3: '5 hours of exercise a week',
+	4: '10 hours of exercise a week',
+	5: '12 hours or more of exercise a week',
+};
+
 function App() {
 	const [isLoading, setIsLoading] = useState(false);
 	const [diet, setDiet] = useState(null);
+	const [userInfo, setUserInfo] = useState({
+		gender: null,
+		goal: null,
+		height: null,
+		heightMeasurement: 'cm',
+		weight: null,
+		weightMeasurement: 'kg',
+		birthdate: dayjs(),
+		activityLevel: 1,
+		wakeUpTime: null,
+		sleepTime: null,
+		exerciseStartTime: null,
+		exerciseEndTime: null,
+		allergies: [],
+		allergiesOther: '',
+		dietPreferences: [],
+		dietPreferencesOther: '',
+		medicalConditions: [],
+		medicalConditionsOther: '',
+	});
 	const openai = new OpenAI({
 		apiKey: process.env.REACT_APP_OPENAI_API_KEY,
 		dangerouslyAllowBrowser: true,
 	});
+	console.log('userInfo');
+	console.log(userInfo);
 
 	const generateDiet = async () => {
 		setIsLoading(true);
@@ -21,22 +55,35 @@ function App() {
 		// 		{
 		// 			role: 'system',
 		// 			content:
-		// 				"You're an experienced nutritionist and you will create me a custom meal plan.",
+		// 				"You're an experienced nutritionist and you will create me a custom meal plan. Bellow is my information:",
+		// 		},
+		// 		{
+		// 			role: 'system',
+		// 			content: `Gender: ${userInfo.gender}, Height: ${userInfo.height}${
+		// 				userInfo.heightMeasurement
+		// 			}, Weight: ${userInfo.weight}${
+		// 				userInfo.weightMeasurement
+		// 			}, Age: ${dayjs().from(dayjs(userInfo.birthdate), true)}`,
+		// 		},
+		// 		{
+		// 			role: 'system',
+		// 			content: `Goal: ${userInfo.goal}, Activity level: ${
+		// 				activityLevelRelationTable[userInfo.activityLevel]
+		// 			}, `,
 		// 		},
 		// 		{
 		// 			role: 'system',
 		// 			content:
-		// 				'Age: 27, Gender: Male, Weight: 85kg, Height: 165cm, Goal: Fat loss, Activity: Moderate, Gym workout 5 times a week. Diet Preferences: None, Lifestyle and schedule: at least 5 meals a day, no preference to meal timing. Health considerations: No medical conditions. Supplements: Protein and vitamins',
+		// 				'Diet Preferences: None, Health considerations: No medical conditions. Supplements: Protein and vitamins',
+		// 		},
+		// 		{
+		// 			role: 'system',
+		// 			content: `Adjust the diet to my day schedule: Wake up: 5:20am, Exercise: 6:00am to 7:30am, Sleep: 10:00pm. I should always have a meal before my workout`,
 		// 		},
 		// 		{
 		// 			role: 'system',
 		// 			content:
-		// 				'Adjust the diet to my day schedule: wake up at 5:30am, exercise from 6am to 7:30 am, sleep at 10pm. I should always have a meal before my workout',
-		// 		},
-		// 		{
-		// 			role: 'system',
-		// 			content:
-		// 				'For the output ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": number; "proteins": number; "carbs": number; "fats": number; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": number, "proteins": number, "carbs": number, "fats": number, completed: false }[];}`',
+		// 				'The output has to strictly be ONLY THE FOLLOWING JSON OBJECT SHOULD BE RETURNED, no extra strings: `{"dailySummary": { "calories": number; "proteins": number; "carbs": number; "fats": number; }; "meals": { "name": string; "time": string; "content": {"name": string, "quantity": string}[]; "calories": number, "proteins": number, "carbs": number, "fats": number, completed: false }[];}`',
 		// 		},
 		// 		{
 		// 			role: 'system',
@@ -46,6 +93,8 @@ function App() {
 		// 	],
 		// });
 		// const diet = JSON.parse(completion.choices[0].message.content);
+		// setDiet(diet);
+		// setIsLoading(false);
 		// hardcoded diet to save $$$ on development mode
 		const diet = {
 			dailySummary: {
@@ -147,10 +196,19 @@ function App() {
 		}, 4000);
 	};
 
+	const updateUserInfo = (name, value) => {
+		setUserInfo((prev) => ({ ...prev, [name]: value }));
+	};
+
 	return (
 		<Box sx={{ minHeight: '100vh', background: '#f7f7f7' }}>
 			{!diet ? (
-				<UserInformation generateDiet={generateDiet} loadingDiet={isLoading} />
+				<UserInformation
+					userInfo={userInfo}
+					updateUserInfo={updateUserInfo}
+					generateDiet={generateDiet}
+					loadingDiet={isLoading}
+				/>
 			) : (
 				<DietTimeline userDiet={diet} />
 			)}

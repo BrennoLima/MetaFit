@@ -1,7 +1,13 @@
 import React from 'react';
-import { Card, Stack, Box, LinearProgress } from '@mui/material';
+import {
+	Card,
+	CircularProgress,
+	Stack,
+	Box,
+	LinearProgress,
+} from '@mui/material';
 
-const DietLoading = ({ userInfo, updateUserInfo, nextStep, prevStep }) => {
+const DietLoading = () => {
 	return (
 		<Card
 			sx={{
@@ -39,6 +45,7 @@ const DietLoading = ({ userInfo, updateUserInfo, nextStep, prevStep }) => {
 						/>
 					</Box>
 				</Box>
+				<CircularProgress />
 			</Stack>
 		</Card>
 	);

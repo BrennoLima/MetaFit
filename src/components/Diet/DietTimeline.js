@@ -17,6 +17,8 @@ import MealCard from './MealCard';
 import DailySummaryBoard from './DailySummaryBoard';
 import { getTimestamp } from '../../utils/getTimestamp';
 
+const timeNow = new Date().getTime();
+
 function DietTimeline({ userDiet }) {
 	const [consumedMacros, setConsumedMacros] = useState(null);
 	const [diet, setDiet] = useState(userDiet);
@@ -24,7 +26,6 @@ function DietTimeline({ userDiet }) {
 	console.log(diet);
 	console.log('userDiet');
 	console.log(userDiet);
-	const timeNow = new Date().getTime();
 
 	const calculateMacros = (diet) => {
 		// This function calculates (calories, carbs, proteins, and fats) that should have been consumed based on meal completion
@@ -55,19 +56,19 @@ function DietTimeline({ userDiet }) {
 		}));
 	};
 
-	useEffect(() => {
-		const markMealCompletionBasedOnTime = (diet) => {
-			return {
-				...diet,
-				meals: diet.meals.map((meal) => ({
-					...meal,
-					completed: timeNow >= getTimestamp(meal.time),
-				})),
-			};
+	const markMealCompletionBasedOnTime = (diet) => {
+		return {
+			...diet,
+			meals: diet.meals.map((meal) => ({
+				...meal,
+				completed: timeNow >= getTimestamp(meal.time),
+			})),
 		};
+	};
 
+	useEffect(() => {
 		setDiet((prev) => markMealCompletionBasedOnTime(prev));
-	}, [timeNow, userDiet]);
+	}, [userDiet]);
 
 	useEffect(() => {
 		// Whenever the diet object updates, re-calculate macros based on completion
