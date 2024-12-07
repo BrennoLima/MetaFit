@@ -30,7 +30,6 @@ root.render(
         </LocalizationProvider>
       </ThemeProvider>
     </Auth0Provider>
-    ,
   </React.StrictMode>
 );
 
