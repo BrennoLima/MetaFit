@@ -15,10 +15,7 @@ export const Navbar = () => {
       sx={{
         boxShadow: '0px 2px 10px rgba(0,0,0,0.2)',
         height: '50px',
-        background: '#ffffff1a',
-        zIndex: 1,
         padding: '0 1rem',
-        mb: 2,
       }}
     >
       <Container sx={{ display: 'flex', alignItems: 'center', height: '50px' }}>

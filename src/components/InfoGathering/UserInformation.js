@@ -119,7 +119,7 @@ const UserInformation = () => {
   return (
     <Box
       sx={{
-        minHeight: '100vh',
+        minHeight: 'calc(100vh - 50px)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',

@@ -73,7 +73,7 @@ function DietTimeline() {
   }, [diet]);
 
   return (
-    <Box sx={{ minHeight: '100vh', background: '#f7f7f7' }}>
+    <Box sx={{ minHeight: '100vh', background: '#f7f7f7', mt: 2 }}>
       <Container maxWidth="md">
         <DailySummaryBoard
           summary={diet?.dailySummary}
