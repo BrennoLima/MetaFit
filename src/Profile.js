@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 
 const Profile = () => {
+  // eslint-disable-next-line
   const { user, isAuthenticated, getAccessTokenSilently } = useAuth0();
+  // eslint-disable-next-line
   const [userMetadata, setUserMetadata] = useState(null);
 
   return (

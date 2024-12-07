@@ -34,7 +34,7 @@ function App() {
     medicalConditions: [],
     medicalConditionsOther: '',
   });
-
+  // eslint-disable-next-line
   const openai = new OpenAI({
     apiKey: process.env.REACT_APP_OPENAI_API_KEY,
     dangerouslyAllowBrowser: true,
@@ -198,7 +198,7 @@ function App() {
 
     return <button onClick={() => loginWithRedirect()}>Log In</button>;
   };
-
+  // eslint-disable-next-line
   const LogoutButton = () => {
     const { logout } = useAuth0();
 
