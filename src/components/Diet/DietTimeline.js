@@ -17,12 +17,14 @@ import MealCard from './MealCard';
 import DailySummaryBoard from './DailySummaryBoard';
 import { getTimestamp } from '../../utils/getTimestamp';
 import { HARDCODED_DIET } from '../../utils/constants';
+import useIsMobileScreen from '../../utils/useIsMobileScreen';
 
 const timeNow = new Date().getTime();
 
 function DietTimeline() {
   const [consumedMacros, setConsumedMacros] = useState(null);
   const [diet, setDiet] = useState(HARDCODED_DIET);
+  const isMobile = useIsMobileScreen();
 
   const calculateMacros = diet => {
     // This function calculates (calories, carbs, proteins, and fats) that should have been consumed based on meal completion
@@ -74,7 +76,7 @@ function DietTimeline() {
 
   return (
     <Box sx={{ minHeight: '100vh', background: '#f7f7f7', mt: 2 }}>
-      <Container maxWidth="md">
+      <Container maxWidth="md" sx={{ ...(isMobile && { p: 0 }) }}>
         <DailySummaryBoard
           summary={diet?.dailySummary}
           consumedMacros={consumedMacros}
@@ -82,6 +84,12 @@ function DietTimeline() {
         <Timeline
           sx={{
             p: 0,
+            ...(isMobile && { pl: 1 }),
+            '& .MuiTimelineItem-root': {
+              '::before': {
+                display: isMobile && 'none',
+              },
+            },
             '& .MuiTimelineOppositeContent-root': {
               flex: 0,
               paddingLeft: 0,
@@ -93,11 +101,13 @@ function DietTimeline() {
         >
           {diet?.meals.map((mealItem, index) => (
             <TimelineItem key={uuidv4()}>
-              <TimelineOppositeContent sx={{ mt: 1 }}>
-                <Typography variant="body2" fontWeight="semi-bold">
-                  {mealItem.time}
-                </Typography>
-              </TimelineOppositeContent>
+              {!isMobile && (
+                <TimelineOppositeContent sx={{ mt: 1 }}>
+                  <Typography variant="body2" fontWeight="semi-bold">
+                    {mealItem.time}
+                  </Typography>
+                </TimelineOppositeContent>
+              )}
               <TimelineSeparator>
                 <TimelineDot
                   color={mealItem.completed ? 'success' : 'warning'}
