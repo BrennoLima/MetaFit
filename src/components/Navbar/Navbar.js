@@ -1,7 +1,6 @@
 import React from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import { Button, Box, Container, Link } from '@mui/material';
-import FitnessCenterIcon from '@mui/icons-material/FitnessCenter';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import TimelineIcon from '@mui/icons-material/Timeline';
@@ -30,7 +29,11 @@ export const Navbar = () => {
             fontWeight: 600,
           }}
         >
-          <FitnessCenterIcon /> MetaFit
+          <img
+            src="assets/SVGs/MetaFitDark.svg"
+            alt="MetaFit"
+            style={{ width: '100%', height: '32px' }}
+          />
         </Link>
         {isAuthenticated ? (
           <Box sx={{ display: 'flex', gap: 4 }}>
