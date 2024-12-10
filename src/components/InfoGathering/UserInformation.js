@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Box, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import OpenAI from 'openai';
+// import OpenAI from 'openai';
 import relativeTime from 'dayjs/plugin/relativeTime';
 import dayjs from 'dayjs';
 
@@ -41,10 +41,10 @@ const UserInformation = () => {
   const [step, setStep] = useState(0);
 
   // eslint-disable-next-line
-  const openai = new OpenAI({
-    apiKey: process.env.REACT_APP_OPENAI_API_KEY,
-    dangerouslyAllowBrowser: true,
-  });
+  // const openai = new OpenAI({
+  //   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
+  //   dangerouslyAllowBrowser: true,
+  // });
 
   const nextStep = () => {
     setStep(prev => prev + 1);
