@@ -7,6 +7,7 @@ import UserInformation from './components/InfoGathering/UserInformation';
 import { LandingPage } from './components/Landing/LandingPage';
 import DietTimeline from './components/Diet/DietTimeline';
 import { Navbar } from './components/Navbar/Navbar';
+import HomePage from './components/Home/HomePage';
 
 function App() {
   const { isAuthenticated } = useAuth0();
@@ -20,6 +21,7 @@ function App() {
           {isAuthenticated && (
             <>
               <Route path="/user-info" element={<UserInformation />} />
+              <Route path="/home" element={<HomePage />} />
               <Route path="/my-timeline" element={<DietTimeline />} />
             </>
           )}
