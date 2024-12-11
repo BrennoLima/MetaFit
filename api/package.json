@@ -1,0 +1,10 @@
+{
+  "name": "lambda-api",
+  "version": "1.0.0",
+  "description": "Backend Lambda with health check",
+  "main": "index.js",
+  "scripts": {
+    "zip": "zip -r ../function.zip ."
+  },
+  "dependencies": {}
+}
