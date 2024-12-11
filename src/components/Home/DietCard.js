@@ -20,7 +20,9 @@ const DietCard = () => {
           pb: 0.5,
         }}
       >
-        <Typography fontSize={20}>Muscle Gain Plan</Typography>
+        <Typography fontSize={20} fontWeight="medium">
+          Muscle Gain Plan
+        </Typography>
         <Typography
           variant="body2"
           color="text.secondary"

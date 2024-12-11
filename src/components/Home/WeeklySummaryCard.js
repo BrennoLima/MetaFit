@@ -105,7 +105,7 @@ const WeeklySummaryCard = () => {
           justifyContent: 'space-between',
         }}
       >
-        <Typography color="primary" fontSize={20}>
+        <Typography color="primary" fontSize={20} fontWeight="medium">
           Weekly Summary
         </Typography>
         <Chip
