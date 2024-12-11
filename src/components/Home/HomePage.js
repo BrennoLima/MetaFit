@@ -53,7 +53,7 @@ const HomePage = () => {
                   }}
                 >
                   <RestaurantOutlinedIcon color="primary" />
-                  <Typography color="primary" fontSize={24}>
+                  <Typography color="primary" fontSize={24} fontWeight="medium">
                     Diet Plans
                   </Typography>
                 </Box>
@@ -106,7 +106,7 @@ const HomePage = () => {
                 }}
               >
                 <FitnessCenterOutlinedIcon color="primary" />
-                <Typography color="primary" fontSize={24}>
+                <Typography color="primary" fontSize={24} fontWeight="medium">
                   Workout Plans
                 </Typography>
               </Box>

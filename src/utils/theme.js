@@ -11,6 +11,8 @@ export const lightTheme = createTheme({
     },
   },
   typography: {
+    fontWeightRegular: 300,
+    fontWeightMedium: 400,
     button: {
       textTransform: 'none',
     },
