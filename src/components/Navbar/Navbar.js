@@ -14,7 +14,6 @@ import {
 } from '@mui/material';
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
-import TimelineIcon from '@mui/icons-material/Timeline';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useAuth0 } from '@auth0/auth0-react';
@@ -59,26 +58,15 @@ export const Navbar = () => {
         {isAuthenticated ? (
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             {!isMobile && (
-              <>
-                <Button
-                  component={Link}
-                  href="/home"
-                  size="small"
-                  startIcon={<HomeOutlinedIcon />}
-                  sx={{ px: 2 }}
-                >
-                  Home
-                </Button>
-                <Button
-                  component={Link}
-                  href="/my-timeline"
-                  size="small"
-                  startIcon={<TimelineIcon />}
-                  sx={{ px: 2 }}
-                >
-                  My Timeline
-                </Button>
-              </>
+              <Button
+                component={Link}
+                href="/home"
+                size="small"
+                startIcon={<HomeOutlinedIcon />}
+                sx={{ px: 2 }}
+              >
+                Home
+              </Button>
             )}
             <IconButton
               onClick={e => setAnchorEl(e.currentTarget)}
@@ -112,17 +100,6 @@ export const Navbar = () => {
                   <HomeOutlinedIcon />
                 </ListItemIcon>
                 <Typography>Home</Typography>
-              </MenuItem>
-              <MenuItem
-                component={Link}
-                href="/my-timeline"
-                onClick={handleClose}
-                sx={{ minWidth: '150px' }}
-              >
-                <ListItemIcon>
-                  <TimelineIcon />
-                </ListItemIcon>
-                <Typography>Timeline</Typography>
               </MenuItem>
               <Divider />
               <MenuItem onClick={handleClose}>
