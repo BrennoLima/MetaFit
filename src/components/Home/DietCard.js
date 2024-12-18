@@ -65,7 +65,12 @@ const DietCard = () => {
             }}
           />
           <Typography color="text.secondary">
-            <b>250g</b> Carbs
+            <mark
+              style={{ background: 'none', color: 'inherit', fontWeight: 400 }}
+            >
+              250g
+            </mark>{' '}
+            Carbs
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -78,7 +83,12 @@ const DietCard = () => {
             }}
           />
           <Typography color="text.secondary">
-            <b>180g</b> Proteins
+            <mark
+              style={{ background: 'none', color: 'inherit', fontWeight: 400 }}
+            >
+              180g
+            </mark>{' '}
+            Proteins
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -91,7 +101,12 @@ const DietCard = () => {
             }}
           />
           <Typography color="text.secondary">
-            <b>80g</b> Fats
+            <mark
+              style={{ background: 'none', color: 'inherit', fontWeight: 400 }}
+            >
+              80g
+            </mark>{' '}
+            Fats
           </Typography>
         </Box>
       </Box>

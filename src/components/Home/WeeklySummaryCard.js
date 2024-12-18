@@ -4,6 +4,7 @@ import {
   Card,
   Chip,
   Typography,
+  Stack,
   Divider,
   IconButton,
 } from '@mui/material';
@@ -135,6 +136,25 @@ const WeeklySummaryCard = () => {
       </Box>
 
       <Bar options={options} data={data} />
+
+      <Stack
+        sx={{ background: '#00000010', p: 1, borderRadius: 1, gap: 1, mt: 2 }}
+      >
+        <Typography variant="body2">
+          Logged days:{' '}
+          <mark style={{ background: 'none', fontWeight: 400 }}>5</mark>
+        </Typography>
+        <Typography variant="body2">
+          Missed days:{' '}
+          <mark style={{ background: 'none', fontWeight: 400 }}>
+            Wednessday, Saturday
+          </mark>
+        </Typography>
+        <Typography variant="body2">
+          Objective completed:{' '}
+          <mark style={{ background: 'none', fontWeight: 400 }}>3/5 logs</mark>
+        </Typography>
+      </Stack>
     </Card>
   );
 };
