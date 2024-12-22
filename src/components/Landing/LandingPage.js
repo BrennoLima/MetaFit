@@ -1,7 +1,13 @@
 import React from 'react';
 
-import { Container } from '@mui/material';
+import { Hero } from './Hero';
+import { Features } from './Features';
 
 export const LandingPage = () => {
-  return <Container>Landing Page</Container>;
+  return (
+    <>
+      <Hero />
+      <Features />
+    </>
+  );
 };

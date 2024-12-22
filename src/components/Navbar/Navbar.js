@@ -144,7 +144,14 @@ export const Navbar = () => {
               alignItems: 'center',
             }}
           >
-            <Box sx={{ ml: 'auto', mr: 'auto', display: 'flex', gap: 4 }}>
+            <Box
+              sx={{
+                ml: 'auto',
+                mr: 'auto',
+                display: 'flex',
+                gap: isMobile ? 2 : 4,
+              }}
+            >
               <Button
                 size={isLargeNav ? 'large' : 'small'}
                 onClick={loginWithRedirect}
