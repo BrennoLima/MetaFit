@@ -12,19 +12,21 @@ import {
   MenuItem,
   Typography,
 } from '@mui/material';
-import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
 import { useAuth0 } from '@auth0/auth0-react';
 import useIsMobileScreen from '../../utils/useIsMobileScreen';
+import useScrollPosition from '../../utils/useScrollPosition';
 
 export const Navbar = () => {
   const isMobile = useIsMobileScreen();
   const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
-
+  const scrollPosition = useScrollPosition();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const isLargeNav = !isMobile && scrollPosition === 0;
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -33,11 +35,16 @@ export const Navbar = () => {
   return (
     <Box
       sx={{
-        boxShadow: '0px 2px 10px rgba(0,0,0,0.2)',
-        height: '50px',
+        height: isLargeNav ? '120px' : '50px',
       }}
     >
-      <Container sx={{ display: 'flex', alignItems: 'center', height: '50px' }}>
+      <Container
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          height: isLargeNav ? '120px' : '50px',
+        }}
+      >
         <Link
           href={'/'}
           sx={{
@@ -52,7 +59,7 @@ export const Navbar = () => {
           <img
             src="assets/SVGs/MetaFitDark.svg"
             alt="MetaFit"
-            style={{ width: '100%', height: '32px' }}
+            style={{ width: '100%', height: isLargeNav ? '80px' : '38px' }}
           />
         </Link>
         {isAuthenticated ? (
@@ -61,21 +68,27 @@ export const Navbar = () => {
               <Button
                 component={Link}
                 href="/home"
-                size="small"
-                startIcon={<HomeOutlinedIcon />}
-                sx={{ px: 2 }}
+                size={isLargeNav ? 'large' : 'small'}
+                sx={{ px: 2, fontWeight: 500 }}
               >
                 Home
               </Button>
             )}
             <IconButton
               onClick={e => setAnchorEl(e.currentTarget)}
-              size="small"
+              size={isLargeNav ? 'large' : 'small'}
               aria-controls={open ? 'user-menu' : undefined}
               aria-haspopup="true"
               aria-expanded={open ? 'true' : undefined}
             >
-              <Avatar sx={{ width: 32, height: 32 }}>B</Avatar>
+              <Avatar
+                sx={{
+                  width: isLargeNav ? 40 : 32,
+                  height: isLargeNav ? 40 : 32,
+                }}
+              >
+                B
+              </Avatar>
             </IconButton>
             <Menu
               anchorEl={anchorEl}
@@ -124,13 +137,38 @@ export const Navbar = () => {
             </Menu>
           </Box>
         ) : (
-          <Button
-            size="small"
-            startIcon={<LoginIcon size="small" />}
-            onClick={loginWithRedirect}
+          <Box
+            sx={{
+              width: 1,
+              display: 'flex',
+              alignItems: 'center',
+            }}
           >
-            Login
-          </Button>
+            <Box sx={{ ml: 'auto', mr: 'auto', display: 'flex', gap: 4 }}>
+              <Button
+                size={isLargeNav ? 'large' : 'small'}
+                onClick={loginWithRedirect}
+                sx={{ fontWeight: 500 }}
+              >
+                Features
+              </Button>
+              <Button
+                size={isLargeNav ? 'large' : 'small'}
+                onClick={loginWithRedirect}
+                sx={{ fontWeight: 500 }}
+              >
+                About
+              </Button>
+            </Box>
+
+            <Button
+              size={isLargeNav ? 'large' : 'small'}
+              onClick={loginWithRedirect}
+              sx={{ fontWeight: 500 }}
+            >
+              Login
+            </Button>
+          </Box>
         )}
       </Container>
     </Box>
