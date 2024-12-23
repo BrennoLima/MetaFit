@@ -18,7 +18,7 @@ export const Hero = () => {
       <Box sx={{ width: 1, pr: 4 }}>
         <Typography
           color="primary"
-          fontSize={isMobile ? 24 : 32}
+          fontSize={[24, 32]}
           fontWeight={500}
           sx={{ opacity: 0.25 }}
         >
@@ -26,7 +26,7 @@ export const Hero = () => {
         </Typography>
         <Typography
           color="primary"
-          fontSize={isMobile ? 24 : 32}
+          fontSize={[24, 32]}
           fontWeight={600}
           letterSpacing={4}
           sx={{ mb: 4 }}
@@ -35,7 +35,7 @@ export const Hero = () => {
         </Typography>
         <Typography
           color="primary"
-          fontSize={isMobile ? 20 : 24}
+          fontSize={[20, 24]}
           sx={{ opacity: 0.75, mb: 4 }}
         >
           Generate personalized meal plans and workouts based on your own
