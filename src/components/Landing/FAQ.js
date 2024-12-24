@@ -119,7 +119,7 @@ export const FAQ = () => {
             gap: 10,
           }}
         >
-          <Box sx={{ width: ['60%', '45%'], mx: 'auto', mb: [4, 0] }}>
+          <Box sx={{ width: ['60%', '50%'], mx: 'auto', mb: [4, 0] }}>
             <img
               src="assets/SVGs/FAQ.svg"
               alt="FAQ"

@@ -4,6 +4,7 @@ import { Hero } from './Hero';
 import { Features } from './Features';
 import { Testimonials } from './Testimonials';
 import { FAQ } from './FAQ';
+import { Footer } from './Footer';
 
 export const LandingPage = () => {
   return (
@@ -12,6 +13,7 @@ export const LandingPage = () => {
       <Features />
       <Testimonials />
       <FAQ />
+      <Footer />
     </>
   );
 };
