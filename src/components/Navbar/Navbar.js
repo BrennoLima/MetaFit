@@ -26,7 +26,8 @@ export const Navbar = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  const isLargeNav = !isMobile && scrollPosition === 0;
+  const isLargeNav =
+    window.location.pathname === '/' && !isMobile && scrollPosition === 0;
 
   const handleClose = () => {
     setAnchorEl(null);
@@ -36,7 +37,7 @@ export const Navbar = () => {
     <Box
       sx={{
         height: isLargeNav ? '120px' : '50px',
-        transition: 'all 0.25s ease-in',
+        transition: 'all 0.25s linear',
       }}
     >
       <Container
@@ -44,7 +45,7 @@ export const Navbar = () => {
           display: 'flex',
           alignItems: 'center',
           height: isLargeNav ? '120px' : '50px',
-          transition: 'all 0.25s ease-in',
+          transition: 'all 0.25s linear',
         }}
       >
         <Link
@@ -64,7 +65,7 @@ export const Navbar = () => {
             style={{
               width: '100%',
               height: isLargeNav ? '80px' : '38px',
-              transition: 'all 0.25s ease-in',
+              transition: 'all 0.25s linear',
             }}
           />
         </Link>
@@ -75,7 +76,7 @@ export const Navbar = () => {
                 component={Link}
                 href="/home"
                 size={isLargeNav ? 'large' : 'small'}
-                sx={{ px: 2, fontWeight: 500, transition: 'all 0.25s ease-in' }}
+                sx={{ px: 2, fontWeight: 500, transition: 'all 0.25s linear' }}
               >
                 Home
               </Button>
@@ -161,14 +162,14 @@ export const Navbar = () => {
               <Button
                 size={isLargeNav ? 'large' : 'small'}
                 onClick={loginWithRedirect}
-                sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
+                sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
               >
                 Features
               </Button>
               <Button
                 size={isLargeNav ? 'large' : 'small'}
                 onClick={loginWithRedirect}
-                sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
+                sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
               >
                 About
               </Button>
@@ -177,7 +178,7 @@ export const Navbar = () => {
             <Button
               size={isLargeNav ? 'large' : 'small'}
               onClick={loginWithRedirect}
-              sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
+              sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
             >
               Login
             </Button>
