@@ -36,6 +36,7 @@ export const Navbar = () => {
     <Box
       sx={{
         height: isLargeNav ? '120px' : '50px',
+        transition: 'all 0.25s ease-in',
       }}
     >
       <Container
@@ -43,6 +44,7 @@ export const Navbar = () => {
           display: 'flex',
           alignItems: 'center',
           height: isLargeNav ? '120px' : '50px',
+          transition: 'all 0.25s ease-in',
         }}
       >
         <Link
@@ -59,7 +61,11 @@ export const Navbar = () => {
           <img
             src="assets/SVGs/MetaFitDark.svg"
             alt="MetaFit"
-            style={{ width: '100%', height: isLargeNav ? '80px' : '38px' }}
+            style={{
+              width: '100%',
+              height: isLargeNav ? '80px' : '38px',
+              transition: 'all 0.25s ease-in',
+            }}
           />
         </Link>
         {isAuthenticated ? (
@@ -69,7 +75,7 @@ export const Navbar = () => {
                 component={Link}
                 href="/home"
                 size={isLargeNav ? 'large' : 'small'}
-                sx={{ px: 2, fontWeight: 500 }}
+                sx={{ px: 2, fontWeight: 500, transition: 'all 0.25s ease-in' }}
               >
                 Home
               </Button>
@@ -155,14 +161,14 @@ export const Navbar = () => {
               <Button
                 size={isLargeNav ? 'large' : 'small'}
                 onClick={loginWithRedirect}
-                sx={{ fontWeight: 500 }}
+                sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
               >
                 Features
               </Button>
               <Button
                 size={isLargeNav ? 'large' : 'small'}
                 onClick={loginWithRedirect}
-                sx={{ fontWeight: 500 }}
+                sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
               >
                 About
               </Button>
@@ -171,7 +177,7 @@ export const Navbar = () => {
             <Button
               size={isLargeNav ? 'large' : 'small'}
               onClick={loginWithRedirect}
-              sx={{ fontWeight: 500 }}
+              sx={{ fontWeight: 500, transition: 'all 0.25s ease-in' }}
             >
               Login
             </Button>

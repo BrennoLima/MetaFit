@@ -17,7 +17,7 @@ export const Features = () => {
         <Stack
           direction={isMobile ? 'column' : 'row'}
           alignItems="center"
-          gap={isMobile ? 4 : 8}
+          gap={[4, 8]}
         >
           <Box sx={{ width: [1 / 2, 1 / 5] }}>
             <img
@@ -28,7 +28,7 @@ export const Features = () => {
           </Box>
           <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
             <Typography
-              fontSize={isMobile ? 20 : 24}
+              fontSize={[20, 24]}
               fontWeight={500}
               sx={{ color: '#FFF' }}
             >
@@ -48,13 +48,13 @@ export const Features = () => {
         <Stack
           direction={isMobile ? 'column' : 'row'}
           alignItems="center"
-          gap={isMobile ? 4 : 8}
+          gap={[4, 8]}
           sx={{ flexDirection: isMobile && 'column-reverse' }}
         >
           <Box sx={{ width: 1 / 5 }} />
           <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
             <Typography
-              fontSize={isMobile ? 20 : 24}
+              fontSize={[20, 24]}
               fontWeight={500}
               sx={{ color: '#FFF' }}
             >
@@ -81,7 +81,7 @@ export const Features = () => {
         <Stack
           direction={isMobile ? 'column' : 'row'}
           alignItems="center"
-          gap={isMobile ? 4 : 8}
+          gap={[4, 8]}
         >
           <Box sx={{ width: [1 / 2, 1 / 5] }}>
             <img
@@ -92,7 +92,7 @@ export const Features = () => {
           </Box>
           <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
             <Typography
-              fontSize={isMobile ? 20 : 24}
+              fontSize={[20, 24]}
               fontWeight={500}
               sx={{ color: '#FFF' }}
             >

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import {
   Accordion,
   AccordionDetails,
@@ -9,6 +8,8 @@ import {
   Typography,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+import { QUESTIONS_ANSWERS } from '../../utils/constants';
 
 const QA = ({ question, answer, expanded, onExpanded, index }) => {
   return (
@@ -36,8 +37,8 @@ const QA = ({ question, answer, expanded, onExpanded, index }) => {
         expandIcon={
           expanded ? null : <ExpandMoreIcon sx={{ color: 'white' }} />
         }
-        aria-controls="panel1-content"
-        id="panel1-header"
+        aria-controls={`panel${index}-content`}
+        id={`panel${index}-header`}
       >
         <Typography
           letterSpacing={1.2}
@@ -56,34 +57,6 @@ const QA = ({ question, answer, expanded, onExpanded, index }) => {
     </Accordion>
   );
 };
-
-const QUESTIONS_ANSWERS = [
-  {
-    question: 'What is MetaFit about?',
-    answer:
-      'MetaFit is an AI-powered fitness coach designed to create personalized workout routines and nutrition plans tailored to your fitness goals, lifestyle, and body type.',
-  },
-  {
-    question: 'How does the MetaFit create my plan?',
-    answer:
-      'MetaFit uses your input, such as age, weight, activity level, and goals (e.g., weight loss, muscle gain, or maintaining fitness), to generate a customized program that evolves with your progress.',
-  },
-  {
-    question: 'Can I track my progress?',
-    answer:
-      'Yes! MetaFit includes tools to track your weight, muscle gain, calorie intake, and workout performance to ensure you’re on track to meet your goals.',
-  },
-  {
-    question: 'Is MetaFit suitable for beginners?',
-    answer:
-      'Absolutely! MetaFit provides step-by-step guidance, making it ideal for beginners, while also challenging seasoned fitness enthusiasts.',
-  },
-  {
-    question: 'Can I adjust my plan if my goals change?',
-    answer:
-      'Yes, you can update your goals at any time, and MetaFit will create a new plan to fit your updated objectives.',
-  },
-];
 
 export const FAQ = () => {
   const [isExpanded, setIsExpanded] = useState(0);
