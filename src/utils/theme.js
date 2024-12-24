@@ -9,6 +9,9 @@ export const lightTheme = createTheme({
     secondary: {
       main: '#fbaf1d',
     },
+    text: {
+      primary: '#132946',
+    },
   },
   typography: {
     fontWeightRegular: 300,
