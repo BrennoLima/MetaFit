@@ -134,7 +134,14 @@ function DietTimeline() {
                 </TimelineDot>
                 <TimelineConnector sx={{ width: '1px', my: 1 }} />
               </TimelineSeparator>
-              <TimelineContent sx={{ mt: -1, mb: 4 }}>
+              <TimelineContent
+                sx={{
+                  mt: -1,
+                  mb: 4,
+                  paddingLeft: [1, 2],
+                  paddingRight: [1, 0],
+                }}
+              >
                 <MealCard summary={diet?.dailySummary} meal={mealItem} />
               </TimelineContent>
             </TimelineItem>
