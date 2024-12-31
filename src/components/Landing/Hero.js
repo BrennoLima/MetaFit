@@ -51,7 +51,7 @@ export const Hero = () => {
           Start your journey!
         </Button>
       </Box>
-      <Box sx={{ width: 1, mt: isMobile && 4 }}>
+      <Box sx={{ width: 1, mt: [4, 0] }}>
         <img
           src="assets/images/PhonesMockup.png"
           alt="phones-mockup"

@@ -26,7 +26,7 @@ export const Features = () => {
               style={{ width: '100%' }}
             />
           </Box>
-          <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
+          <Box sx={{ pr: 4, pl: [4, 0], width: [1, 3 / 5] }}>
             <Typography
               fontSize={[20, 24]}
               fontWeight={500}
@@ -52,7 +52,7 @@ export const Features = () => {
           sx={{ flexDirection: isMobile && 'column-reverse' }}
         >
           <Box sx={{ width: 1 / 5 }} />
-          <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
+          <Box sx={{ pr: 4, pl: [4, 0], width: [1, 3 / 5] }}>
             <Typography
               fontSize={[20, 24]}
               fontWeight={500}
@@ -90,7 +90,7 @@ export const Features = () => {
               style={{ width: '100%' }}
             />
           </Box>
-          <Box sx={{ pr: 4, pl: isMobile && 4, width: [1, 3 / 5] }}>
+          <Box sx={{ pr: 4, pl: [4, 0], width: [1, 3 / 5] }}>
             <Typography
               fontSize={[20, 24]}
               fontWeight={500}
