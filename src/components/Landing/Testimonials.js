@@ -185,7 +185,7 @@ export const Testimonials = () => {
             },
           }}
           autoplay={{
-            delay: 10000,
+            delay: 5000,
             disableOnInteraction: false,
           }}
         >
