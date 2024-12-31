@@ -9,6 +9,7 @@ import {
   Container,
   IconButton,
   TextField,
+  Link,
   Stack,
   Typography,
 } from '@mui/material';
@@ -63,13 +64,13 @@ export const Footer = () => {
             }}
           >
             <Box sx={{ display: 'flex', gap: 2 }}>
-              <IconButton>
+              <IconButton component={Link} href="/" aria-label="facebook">
                 <FacebookIcon />
               </IconButton>
-              <IconButton>
+              <IconButton component={Link} href="/" aria-label="x">
                 <XIcon />
               </IconButton>
-              <IconButton>
+              <IconButton component={Link} href="/" aria-label="instagram">
                 <InstagramIcon />
               </IconButton>
             </Box>
@@ -106,7 +107,7 @@ export const Footer = () => {
           </Box>
         </Box>
       </Box>
-      <Typography color="primary" fontSize={14} sx={{ opacity: 0.75, mt: 2 }}>
+      <Typography fontSize={14} sx={{ mt: 2 }}>
         Copyright © MetaFit 2024 ∙ All rights reserved
       </Typography>
     </Container>

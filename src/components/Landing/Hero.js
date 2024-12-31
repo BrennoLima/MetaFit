@@ -20,7 +20,7 @@ export const Hero = () => {
           color="primary"
           fontSize={[24, 32]}
           fontWeight={500}
-          sx={{ opacity: 0.25 }}
+          sx={{ opacity: 0.75 }}
         >
           YOUR AI
         </Typography>
@@ -53,7 +53,7 @@ export const Hero = () => {
       </Box>
       <Box sx={{ width: 1, mt: [4, 0] }}>
         <img
-          src="assets/images/PhonesMockup.png"
+          src="assets/images/PhonesMockup.webp"
           alt="phones-mockup"
           style={{ width: '100%' }}
         />

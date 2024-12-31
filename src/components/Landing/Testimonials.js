@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import { Box, Card, Container, Typography } from '@mui/material';
 // Swiper
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { FreeMode, Pagination, A11y, Autoplay } from 'swiper/modules';
+import { FreeMode, A11y, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/free-mode';
-import 'swiper/css/pagination';
 import 'swiper/css/parallax';
 
 import useIsMobileScreen from '../../utils/useIsMobileScreen';
@@ -160,11 +159,11 @@ export const Testimonials = () => {
         color="primary"
         align="center"
         fontSize={[16, 24]}
-        sx={{ opacity: 0.5, mb: [3, 6] }}
+        sx={{ opacity: 0.75, mb: [3, 6] }}
       >
         You can be the next
       </Typography>
-      <Box>
+      <Box sx={{ py: [2, 4] }}>
         <Swiper
           centeredSlides
           onActiveIndexChange={swiper =>
@@ -174,8 +173,7 @@ export const Testimonials = () => {
           grabCursor
           spaceBetween={50}
           slidesPerView={3}
-          modules={[FreeMode, Pagination, A11y, Autoplay]}
-          pagination={{ clickable: true }}
+          modules={[FreeMode, A11y, Autoplay]}
           breakpoints={{
             0: {
               slidesPerView: 1,
@@ -196,7 +194,6 @@ export const Testimonials = () => {
               <Box
                 sx={{
                   py: [2, 4],
-                  mb: 6,
                   transition: 'all 0.2s linear',
                   transform: activeIndex === index ? 'scale(1.1)' : '',
                 }}
