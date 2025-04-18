@@ -53,7 +53,7 @@ export const Hero = () => {
       </Box>
       <Box sx={{ width: 1, mt: [6, 0] }}>
         <img
-          src="assets/images/PhonesMockup.webp"
+          src="assets/images/PhonesMockup.png"
           alt="phones-mockup"
           style={{ width: '100%', transform: 'scale(1.1)' }}
         />
