@@ -15,13 +15,12 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
-import { useAuth0 } from '@auth0/auth0-react';
 import useIsMobileScreen from '../../utils/useIsMobileScreen';
 import useScrollPosition from '../../utils/useScrollPosition';
 
 export const Navbar = () => {
   const isMobile = useIsMobileScreen();
-  const { isAuthenticated, loginWithRedirect, logout } = useAuth0();
+  const isAuthenticated = false;
   const scrollPosition = useScrollPosition();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -128,14 +127,7 @@ export const Navbar = () => {
                 </ListItemIcon>
                 <Typography>Settings</Typography>
               </MenuItem>
-              <MenuItem
-                onClick={() => {
-                  logout({
-                    logoutParams: { returnTo: window.location.origin },
-                  });
-                  handleClose();
-                }}
-              >
+              <MenuItem>
                 <ListItemIcon>
                   <LogoutIcon size="small" />
                 </ListItemIcon>
@@ -161,14 +153,12 @@ export const Navbar = () => {
             >
               <Button
                 size={isLargeNav ? 'large' : 'small'}
-                onClick={loginWithRedirect}
                 sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
               >
                 Features
               </Button>
               <Button
                 size={isLargeNav ? 'large' : 'small'}
-                onClick={loginWithRedirect}
                 sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
               >
                 About
@@ -177,7 +167,6 @@ export const Navbar = () => {
 
             <Button
               size={isLargeNav ? 'large' : 'small'}
-              onClick={loginWithRedirect}
               sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
             >
               Login

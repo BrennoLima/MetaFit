@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import { Auth0Provider } from '@auth0/auth0-react';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import { ThemeProvider } from '@emotion/react';
@@ -18,19 +17,11 @@ import 'swiper/css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Auth0Provider
-      domain="dev-5a5e0c4j3fsshqij.us.auth0.com"
-      clientId="NksP1bQ5l9MJSpD3JUeKKENluvQfm2bs"
-      authorizationParams={{
-        redirect_uri: window.location.origin,
-      }}
-    >
-      <ThemeProvider theme={lightTheme}>
-        <LocalizationProvider dateAdapter={AdapterDayjs}>
-          <App />
-        </LocalizationProvider>
-      </ThemeProvider>
-    </Auth0Provider>
+    <ThemeProvider theme={lightTheme}>
+      <LocalizationProvider dateAdapter={AdapterDayjs}>
+        <App />
+      </LocalizationProvider>
+    </ThemeProvider>
   </React.StrictMode>
 );
 

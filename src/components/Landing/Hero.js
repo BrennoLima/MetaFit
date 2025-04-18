@@ -15,7 +15,7 @@ export const Hero = () => {
         py: '5vh',
       }}
     >
-      <Box sx={{ width: 1, pr: 4 }}>
+      <Box sx={{ width: 1, pr: 4, pb: [0, 4] }}>
         <Typography
           color="primary"
           fontSize={[24, 32]}
@@ -51,11 +51,11 @@ export const Hero = () => {
           Start your journey!
         </Button>
       </Box>
-      <Box sx={{ width: 1, mt: [4, 0] }}>
+      <Box sx={{ width: 1, mt: [6, 0] }}>
         <img
           src="assets/images/PhonesMockup.webp"
           alt="phones-mockup"
-          style={{ width: '100%' }}
+          style={{ width: '100%', transform: 'scale(1.1)' }}
         />
       </Box>
     </Container>

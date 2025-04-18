@@ -1,7 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { Box } from '@mui/material';
-import { useAuth0 } from '@auth0/auth0-react';
 
 import UserInformation from './components/InfoGathering/UserInformation';
 import { LandingPage } from './components/Landing/LandingPage';
@@ -10,7 +9,7 @@ import { Navbar } from './components/Navbar/Navbar';
 import HomePage from './components/Home/HomePage';
 
 function App() {
-  const { isAuthenticated } = useAuth0();
+  const isAuthenticated = false;
 
   return (
     <Router>
