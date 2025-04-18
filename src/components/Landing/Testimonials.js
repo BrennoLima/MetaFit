@@ -61,7 +61,7 @@ export const Testimonials = () => {
     {
       name: 'Sophia L.',
       handle: '@sophi001',
-      text: "This app has been a game-changer for me! I lost 9 kg and feel healthier and more energetic. The personalized meal plans and workouts fit perfectly into my routine. I've gained confidence and learned how to maintain a balanced, sustainable lifestyle.",
+      text: "This app has been a game-changer! I lost 9 kg and feel healthier and more energetic. The personalized meal plans and workouts fit perfectly into my routine. I've gained confidence and learned how to maintain a balanced lifestyle.",
       image: 'testimonials2',
     },
     {
