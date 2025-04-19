@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Box, Container } from '@mui/material';
+import React, { useState, useContext } from 'react';
+import { Box, Container, Dialog } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 // import OpenAI from 'openai';
 import relativeTime from 'dayjs/plugin/relativeTime';
@@ -12,34 +12,37 @@ import LifestyleInformation from './Steps/LifestyleInformation';
 import DietaryInformation from './Steps/DietaryInformation';
 import MedicalInformation from './Steps/MedicalInformation';
 import DietLoading from './Steps/DietLoading';
+import { AppContext } from '../../App';
 
 dayjs.extend(relativeTime);
 
 const UserInformation = () => {
   const navigate = useNavigate();
+  const { appContext, updateAppContext } = useContext(AppContext);
   const [isLoading, setIsLoading] = useState(false);
-  const [userInfo, setUserInfo] = useState({
-    gender: null,
-    goal: null,
-    height: null,
-    heightMeasurement: 'cm',
-    weight: null,
-    weightMeasurement: 'kg',
-    birthdate: dayjs(),
-    activityLevel: 1,
-    wakeUpTime: null,
-    sleepTime: null,
-    exerciseStartTime: null,
-    exerciseEndTime: null,
-    allergies: [],
-    allergiesOther: '',
-    dietPreferences: [],
-    dietPreferencesOther: '',
-    medicalConditions: [],
-    medicalConditionsOther: '',
-  });
+  const [userInfo, setUserInfo] = useState(
+    appContext?.userInfo || {
+      gender: null,
+      goal: null,
+      height: null,
+      heightMeasurement: 'cm',
+      weight: null,
+      weightMeasurement: 'kg',
+      birthdate: dayjs(),
+      activityLevel: 1,
+      wakeUpTime: null,
+      sleepTime: null,
+      exerciseStartTime: null,
+      exerciseEndTime: null,
+      allergies: [],
+      allergiesOther: '',
+      dietPreferences: [],
+      dietPreferencesOther: '',
+      medicalConditions: [],
+      medicalConditionsOther: '',
+    }
+  );
   const [step, setStep] = useState(0);
-
   // eslint-disable-next-line
   // const openai = new OpenAI({
   //   apiKey: process.env.REACT_APP_OPENAI_API_KEY,
@@ -55,6 +58,7 @@ const UserInformation = () => {
 
   const generateDiet = async () => {
     setIsLoading(true);
+    updateAppContext('userInfo', userInfo);
     // const completion = await openai.chat.completions.create({
     // 	model: 'gpt-4o-mini',
     // 	messages: [
@@ -106,7 +110,7 @@ const UserInformation = () => {
     setTimeout(() => {
       // BE call so save user info
       // BE call to generate or save diet then redirect to /my-timeline
-      navigate('/my-timeline');
+      navigate('/home');
       // Simulates 4s loading
       setIsLoading(false);
     }, 4000);
@@ -117,69 +121,70 @@ const UserInformation = () => {
   };
 
   return (
-    <Box
-      sx={{
-        minHeight: 'calc(100vh - 50px)',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background: '#07172b',
-      }}
-    >
-      <Container maxWidth="md" sx={{ px: '0 !important', my: 4 }}>
-        {step === 0 && (
-          <GenderInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={nextStep}
-          />
-        )}
-        {step === 1 && (
-          <GoalInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        )}
-        {step === 2 && (
-          <PersonalInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        )}
-        {step === 3 && (
-          <LifestyleInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        )}
-        {step === 4 && (
-          <DietaryInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={nextStep}
-            prevStep={prevStep}
-          />
-        )}
-        {step === 5 && (
-          <MedicalInformation
-            userInfo={userInfo}
-            updateUserInfo={updateUserInfo}
-            nextStep={() => {
-              nextStep();
-              generateDiet();
-            }}
-            prevStep={prevStep}
-          />
-        )}
-        {step === 6 && <DietLoading isLoading={isLoading} />}
-      </Container>
-    </Box>
+    <Dialog open={1} maxWidth="lg">
+      <Box
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: '#07172b',
+        }}
+      >
+        <Container maxWidth="md" sx={{ px: '0 !important' }}>
+          {step === 0 && (
+            <GenderInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={nextStep}
+            />
+          )}
+          {step === 1 && (
+            <GoalInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          {step === 2 && (
+            <PersonalInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          {step === 3 && (
+            <LifestyleInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          {step === 4 && (
+            <DietaryInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={nextStep}
+              prevStep={prevStep}
+            />
+          )}
+          {step === 5 && (
+            <MedicalInformation
+              userInfo={userInfo}
+              updateUserInfo={updateUserInfo}
+              nextStep={() => {
+                nextStep();
+                generateDiet();
+              }}
+              prevStep={prevStep}
+            />
+          )}
+          {step === 6 && <DietLoading isLoading={isLoading} />}
+        </Container>
+      </Box>
+    </Dialog>
   );
 };
 

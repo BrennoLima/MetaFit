@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import {
   Avatar,
   Button,
@@ -15,21 +15,39 @@ import {
 import LogoutIcon from '@mui/icons-material/Logout';
 import HomeOutlinedIcon from '@mui/icons-material/HomeOutlined';
 import SettingsIcon from '@mui/icons-material/Settings';
+import { useNavigate } from 'react-router-dom';
+
 import useIsMobileScreen from '../../utils/useIsMobileScreen';
 import useScrollPosition from '../../utils/useScrollPosition';
+import { AppContext } from '../../App';
 
 export const Navbar = () => {
   const isMobile = useIsMobileScreen();
-  const isAuthenticated = false;
   const scrollPosition = useScrollPosition();
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
+
+  const {
+    appContext: { isAuthenticated },
+    updateAppContext,
+  } = useContext(AppContext);
 
   const isLargeNav =
     window.location.pathname === '/' && !isMobile && scrollPosition === 0;
 
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleLogin = () => {
+    updateAppContext('isAuthenticated', true);
+    navigate('/home');
+  };
+
+  const handleLogout = () => {
+    updateAppContext('isAuthenticated', false);
+    navigate('/');
   };
 
   return (
@@ -127,7 +145,12 @@ export const Navbar = () => {
                 </ListItemIcon>
                 <Typography>Settings</Typography>
               </MenuItem>
-              <MenuItem>
+              <MenuItem
+                onClick={e => {
+                  handleClose(e);
+                  handleLogout();
+                }}
+              >
                 <ListItemIcon>
                   <LogoutIcon size="small" />
                 </ListItemIcon>
@@ -168,6 +191,7 @@ export const Navbar = () => {
             <Button
               size={isLargeNav ? 'large' : 'small'}
               sx={{ fontWeight: 500, transition: 'all 0.25s linear' }}
+              onClick={handleLogin}
             >
               Login
             </Button>
