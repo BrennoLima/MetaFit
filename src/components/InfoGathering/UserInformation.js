@@ -180,7 +180,6 @@ const UserInformation = () => {
       }}
     >
       <Card
-        id="this-is-id"
         sx={{
           color: 'white',
           backgroundImage:
@@ -193,6 +192,7 @@ const UserInformation = () => {
           boxSizing: 'border-box',
           p: 4,
           pb: 2,
+          overflow: 'auto',
         }}
       >
         <Stack sx={{ height: 1 }}>
